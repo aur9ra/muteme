@@ -9,9 +9,15 @@ muteme offers shell-style commands that users can run in any text channel the bo
 
 Usage:
 `muteme` will show your currently scheduled events.
+
 `muteme [time] [-r <weekday/no>]` will create an event that optionally repeats on a weekday (defined with `-r`)
+
 `muteme [id] [-u <time>]` will update the execution time of an event.
+
 `muteme [id] [-r <weekday/no>]` will update the weekly execution schedule for an event (defined with `-r`)
+
 `muteme [id] -d` deletes an event.
+
 `muteme [id] -z` Snoozes an event. If no id is provided, the most recent event will be snoozed.
+
 `muteme [UTC+X | UTC+X:YY]` sets your user timezone.
