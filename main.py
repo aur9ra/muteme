@@ -59,7 +59,7 @@ async def on_message(message):
     if parsed.time_id_timezone:
         main_arg = parsed.time_id_timezone
         if re.match(UTC_TZ_REGEX, main_arg):
-            events = scheduler.set_user_timezone(user_id, main_arg)
+            events = scheduler.set_user_timezone(user_id, str(main_arg))
             
             for event_id in events:
                 scheduler.schedule_mute(client, event_id)

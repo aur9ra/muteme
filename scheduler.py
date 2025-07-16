@@ -18,6 +18,8 @@ scheduled_tasks = {}
 try:
     with open(USER_FILE, "r") as f:
         users_db = json.load(f)
+        users_db = {str(key): users_db[key] for key in users_db}
+        print(users_db, "users db")
 except:
     users_db = {}
     
@@ -35,7 +37,7 @@ def new_id(ids):
             return s
 
 event_factory = lambda user_id, time, snooze=False, repeat=None: { "user_id": user_id, "time": time, "repeat": repeat if repeat else "no", "snooze": snooze}
-user_factory = lambda timezone=None: { "timezone": timezone if timezone else DEFAULT_TIMEZONE }
+user_factory = lambda timezone=None: { "timezone": None }
 
 #begin timezone, time operations
 def parse_timezone_offset(tz_str):
@@ -97,7 +99,8 @@ def save():
         json.dump(events_db, f, indent=2)
 
 def get_user_entry(user_id):
-    if user_id in users_db:
+    user_id = str(user_id)
+    if user_id in users_db.keys():
         return users_db[user_id]
     else:
         return None
@@ -369,7 +372,6 @@ def set_event_repeat_date(event_id, new_repeat, timezone):
     save()
     return True
 
-# returns a list of event_id s to schedule
 def set_user_timezone(user_id, timezone):
     user_entry = get_or_create_user_entry(user_id)
 
