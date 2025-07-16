@@ -19,7 +19,6 @@ try:
     with open(USER_FILE, "r") as f:
         users_db = json.load(f)
         users_db = {str(key): users_db[key] for key in users_db}
-        print(users_db, "users db")
 except:
     users_db = {}
     
@@ -106,6 +105,7 @@ def get_user_entry(user_id):
         return None
         
 def create_user_entry(user_id):
+    user_id = str(user_id)
     if user_id in users_db:
         return None
     else:

@@ -58,6 +58,7 @@ async def on_message(message):
 
     if parsed.time_id_timezone:
         main_arg = parsed.time_id_timezone
+        
         if re.match(UTC_TZ_REGEX, main_arg):
             events = scheduler.set_user_timezone(user_id, str(main_arg))
             
@@ -67,6 +68,10 @@ async def on_message(message):
             return
         
         if re.match(TIME_REGEX, main_arg):
+            if not user_details["timezone"]:
+                await message.channel.send("Please set a timezone before scheduling an event.")
+                return
+                
             repeat = parsed.repeat if parsed.repeat else scheduler.NO_REPEAT
             event_id = scheduler.create_event_entry(
                                                     user_id = user_id,
